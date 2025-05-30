@@ -1,4 +1,3 @@
-/* Reset e Base */
 * {
     margin: 0;
     padding: 0;
@@ -176,13 +175,13 @@ body {
     justify-content: center;
 }
 
-.team-logo-img { /* Corrigido de .team-logo */
+.team-logo-img {
     width: 30px;
     height: 30px;
     border-radius: 50%;
-    object-fit: contain; /* Ensure logo fits */
-    background-color: rgba(255, 255, 255, 0.1); /* Optional: slight background for visibility */
-    padding: 2px; /* Optional: padding inside border-radius */
+    object-fit: contain;
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 2px;
 }
 
 .position {
@@ -428,7 +427,7 @@ body {
     text-align: right;
 }
 
-.simulator-team-logo-img { /* Corrigido de .simulator-team-logo */
+.simulator-team-logo-img {
     width: 25px;
     height: 25px;
     border-radius: 50%;
