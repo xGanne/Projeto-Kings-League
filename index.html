@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kings League - Simulador de Campeonato</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <header class="header">
+        <div class="header-container">
+            <div class="logo">
+                <i class="fas fa-crown"></i>
+                <h1>KINGS LEAGUE</h1>
+            </div>
+            <nav class="nav">
+                <button class="nav-btn active" data-tab="tabela">
+                    <i class="fas fa-trophy"></i>
+                    Classificação
+                </button>
+                <button class="nav-btn" data-tab="rodadas">
+                    <i class="fas fa-calendar-alt"></i>
+                    Rodadas
+                </button>
+                <button class="nav-btn" data-tab="simulador">
+                    <i class="fas fa-play"></i>
+                    Simulador
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main">
+        <section id="tabela" class="tab-content active">
+            <div class="section-header">
+                <h2><i class="fas fa-trophy"></i> Classificação</h2>
+                <div class="round-info">
+                    <span>Rodada Atual: <span id="current-round">1</span></span>
+                </div>
+            </div>
+            
+            <div class="table-container">
+                <table class="classification-table">
+                    <thead>
+                        <tr>
+                            <th>Pos</th>
+                            <th>Time</th>
+                            <th>J</th>
+                            <th>V</th>
+                            <th>E</th>
+                            <th>D</th>
+                            <th>GP</th>
+                            <th>GC</th>
+                            <th>SG</th>
+                            <th>Pts</th>
+                        </tr>
+                    </thead>
+                    <tbody id="classification-body">
+                        </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section id="rodadas" class="tab-content">
+            <div class="section-header">
+                <h2><i class="fas fa-calendar-alt"></i> Rodadas</h2>
+                <div class="round-selector">
+                    <button id="prev-round" class="round-btn">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <span id="round-display">Rodada 1</span>
+                    <button id="next-round" class="round-btn">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="matches-container" id="matches-container">
+                </div>
+        </section>
+
+        <section id="simulador" class="tab-content">
+            <div class="section-header">
+                <h2><i class="fas fa-play"></i> Simulador</h2>
+                <p class="simulator-desc">Simule as próximas rodadas do campeonato</p>
+            </div>
+            
+            <div class="simulator-controls">
+                <button id="simulate-round" class="btn-primary">
+                    <i class="fas fa-dice"></i>
+                    Simular Próxima Rodada
+                </button>
+                <button id="simulate-all" class="btn-secondary">
+                    <i class="fas fa-forward"></i>
+                    Simular Todo Campeonato
+                </button>
+                <button id="reset-championship" class="btn-danger">
+                    <i class="fas fa-undo"></i>
+                    Resetar Campeonato
+                </button>
+            </div>
+
+            <div class="last-round-results" id="last-round-results" style="display: none;">
+                <h3><i class="fas fa-clock"></i> Última Rodada Simulada</h3>
+                <div class="simulator-matches" id="simulator-matches">
+                    </div>
+            </div>
+
+            <div class="champion-section" id="champion-section" style="display: none;">
+                <div class="champion-card">
+                    <i class="fas fa-crown champion-crown"></i>
+                    <h3>🏆 CAMPEÃO 🏆</h3>
+                    <div class="champion-name" id="champion-name"></div>
+                    <div class="confetti"></div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <p>&copy; 2025 Kings League Simulator - Desenvolvido por Lucas Sabóia & Felipe Augusto</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
