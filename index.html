@@ -1,125 +1,120 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kings League - Simulador de Campeonato</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kings League - Simulador</title>
+    <link rel="stylesheet" href="style.css" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+          rel="stylesheet" />
 </head>
 <body>
-    <header class="header">
-        <div class="header-container">
+    <header class="cabecalho">
+        <div class="container-cabecalho">
             <div class="logo">
                 <i class="fas fa-crown"></i>
                 <h1>KINGS LEAGUE</h1>
             </div>
-            <nav class="nav">
-                <button class="nav-btn active" data-tab="tabela">
-                    <i class="fas fa-trophy"></i>
-                    Classificação
+            <nav class="navegacao">
+                <button class="botao-nav ativo" data-aba="inicio">
+                    <i class="fas fa-home"></i> Início
                 </button>
-                <button class="nav-btn" data-tab="rodadas">
-                    <i class="fas fa-calendar-alt"></i>
-                    Rodadas
-                </button>
-                <button class="nav-btn" data-tab="simulador">
-                    <i class="fas fa-play"></i>
-                    Simulador
+                <button class="botao-nav" data-aba="simulador">
+                    <i class="fas fa-play"></i> Simulador
                 </button>
             </nav>
         </div>
     </header>
 
-    <main class="main">
-        <section id="tabela" class="tab-content active">
-            <div class="section-header">
-                <h2><i class="fas fa-trophy"></i> Classificação</h2>
-                <div class="round-info">
-                    <span>Rodada Atual: <span id="current-round">1</span></span>
-                </div>
-            </div>
-            
-            <div class="table-container">
-                <table class="classification-table">
-                    <thead>
-                        <tr>
-                            <th>Pos</th>
-                            <th>Time</th>
-                            <th>J</th>
-                            <th>V</th>
-                            <th>E</th>
-                            <th>D</th>
-                            <th>GP</th>
-                            <th>GC</th>
-                            <th>SG</th>
-                            <th>Pts</th>
-                        </tr>
-                    </thead>
-                    <tbody id="classification-body">
-                        </tbody>
-                </table>
-            </div>
-        </section>
-
-        <section id="rodadas" class="tab-content">
-            <div class="section-header">
-                <h2><i class="fas fa-calendar-alt"></i> Rodadas</h2>
-                <div class="round-selector">
-                    <button id="prev-round" class="round-btn">
-                        <i class="fas fa-chevron-left"></i>
-                    </button>
-                    <span id="round-display">Rodada 1</span>
-                    <button id="next-round" class="round-btn">
-                        <i class="fas fa-chevron-right"></i>
-                    </button>
-                </div>
-            </div>
-            
-            <div class="matches-container" id="matches-container">
-                </div>
-        </section>
-
-        <section id="simulador" class="tab-content">
-            <div class="section-header">
-                <h2><i class="fas fa-play"></i> Simulador</h2>
-                <p class="simulator-desc">Simule as próximas rodadas do campeonato</p>
-            </div>
-            
-            <div class="simulator-controls">
-                <button id="simulate-round" class="btn-primary">
-                    <i class="fas fa-dice"></i>
-                    Simular Próxima Rodada
-                </button>
-                <button id="simulate-all" class="btn-secondary">
-                    <i class="fas fa-forward"></i>
-                    Simular Todo Campeonato
-                </button>
-                <button id="reset-championship" class="btn-danger">
-                    <i class="fas fa-undo"></i>
-                    Resetar Campeonato
-                </button>
-            </div>
-
-            <div class="last-round-results" id="last-round-results" style="display: none;">
-                <h3><i class="fas fa-clock"></i> Última Rodada Simulada</h3>
-                <div class="simulator-matches" id="simulator-matches">
+    <main>
+        <section id="inicio" class="conteudo-aba ativo">
+            <div class="heroi-inicio">
+                <h2>Simule a <span class="destaque">Kings League</span> e<br>preveja o <span class="destaque">campeão</span></h2>
+                <p>Experimente o simulador mais completo: simule resultados, acompanhe estatísticas em tempo real e descubra o caminho do seu time até o título.</p>
+                <div class="estatisticas-inicio">
+                    <div class="cartao-estatistica">
+                        <div class="numero-estatistica">+5.375</div>
+                        <div class="rotulo-estatistica">Simulações realizadas</div>
                     </div>
+                    <div class="cartao-estatistica">
+                        <div class="numero-estatistica">10</div>
+                        <div class="rotulo-estatistica">Times da liga</div>
+                    </div>
+                    <div class="cartao-estatistica">
+                        <div class="numero-estatistica">100%</div>
+                        <div class="rotulo-estatistica">Gratuito</div>
+                    </div>
+                </div>
+                <button class="botao-primario" id="ir-simulador">
+                    <i class="fas fa-bolt"></i> Começar a Simular Agora
+                </button>
             </div>
+        </section>
 
-            <div class="champion-section" id="champion-section" style="display: none;">
-                <div class="champion-card">
-                    <i class="fas fa-crown champion-crown"></i>
-                    <h3>🏆 CAMPEÃO 🏆</h3>
-                    <div class="champion-name" id="champion-name"></div>
-                    <div class="confetti"></div>
+        <section id="simulador" class="conteudo-aba">
+            <div class="container-flex">
+                <div class="area-classificacao">
+                    <div class="cabecalho-secao">
+                        <h2><i class="fas fa-trophy"></i> Classificação</h2>
+                        <div class="info-rodada">
+                            <span>Rodada Atual: <span id="rodada-atual">1</span></span>
+                        </div>
+                    </div>
+                    <div class="container-tabela">
+                        <table class="tabela-classificacao">
+                            <thead>
+                                <tr>
+                                    <th>Pos</th>
+                                    <th>Time</th>
+                                    <th>J</th>
+                                    <th>V</th>
+                                    <th>E</th>
+                                    <th>D</th>
+                                    <th>GP</th>
+                                    <th>GC</th>
+                                    <th>SG</th>
+                                    <th>Pts</th>
+                                </tr>
+                            </thead>
+                            <tbody id="corpo-classificacao"></tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="area-simulacao">
+                    <div class="cabecalho-secao">
+                        <h2><i class="fas fa-calendar-alt"></i> Rodada Atual</h2>
+                        <div class="seletor-rodada">
+                            <button id="rodada-anterior" class="botao-rodada">
+                                <i class="fas fa-chevron-left"></i>
+                            </button>
+                            <span id="exibir-rodada">Rodada 1</span>
+                            <button id="proxima-rodada" class="botao-rodada">
+                                <i class="fas fa-chevron-right"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="container-partidas" id="container-partidas"></div>
+
+                    <div class="controles-simulador">
+                        <button id="simular-rodada" class="botao-primario">
+                            <i class="fas fa-dice"></i> Simular Próxima Rodada
+                        </button>
+                        <button id="simular-tudo" class="botao-secundario">
+                            <i class="fas fa-forward"></i> Simular Todo Campeonato
+                        </button>
+                        <button id="resetar-campeonato" class="botao-perigo">
+                            <i class="fas fa-undo"></i> Resetar Campeonato
+                        </button>
+                    </div>
                 </div>
             </div>
         </section>
     </main>
 
-    <footer class="footer">
-        <div class="footer-container">
+    <footer class="rodape">
+        <div class="container-rodape">
             <p>&copy; 2025 Kings League Simulator - Desenvolvido por Lucas Sabóia & Felipe Augusto</p>
         </div>
     </footer>
