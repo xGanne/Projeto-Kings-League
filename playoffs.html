@@ -1,0 +1,58 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kings League - Playoffs</title>
+    <link rel="stylesheet" href="style.css" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+</head>
+<body>
+    <header class="cabecalho">
+        <div class="container-cabecalho">
+            <div class="logo">
+                <img src="logos/Capa_3.svg" alt="Logo Kings League" width="140">
+            </div>
+            <nav class="navegacao">
+                <a class="botao-nav" href="index.html">
+                    <i class="fas fa-home"></i> Início
+                </a>
+                <a class="botao-nav" href="simulador.html">
+                    <i class="fas fa-play"></i> Simulador
+                </a>
+                <a class="botao-nav ativo" href="playoffs.html">
+                    <i class="fas fa-trophy"></i> Playoffs
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section id="playoffs" class="conteudo-aba ativo">
+            <div class="chaveamento-playoffs" id="chaveamento">
+                <div class="coluna" id="quartas">
+                    <h3>Quartas de Final</h3>
+                    <div class="confrontos"></div>
+                </div>
+                <div class="coluna" id="semis">
+                    <h3>Semifinais</h3>
+                    <div class="confrontos"></div>
+                </div>
+                <div class="coluna" id="final">
+                    <h3>Final</h3>
+                    <div class="confrontos"></div>
+                </div>
+            </div>
+            <div id="campeao"></div>
+        </section>
+    </main>
+
+    <footer class="rodape">
+        <div class="container-rodape">
+            <p>&copy; 2025 Kings League Simulator - Desenvolvido por Lucas Sabóia & Felipe Augusto</p>
+        </div>
+    </footer>
+
+    <script src="playoffs.js"></script>
+</body>
+</html>
