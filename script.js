@@ -1,24 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const botoesNav = document.querySelectorAll('.botao-nav');
-    const abas = document.querySelectorAll('.conteudo-aba');
-
-    botoesNav.forEach(botao => {
-        botao.addEventListener('click', () => {
-            botoesNav.forEach(b => b.classList.remove('ativo'));
-            abas.forEach(aba => aba.classList.remove('ativo'));
-            botao.classList.add('ativo');
-            document.getElementById(botao.getAttribute('data-aba')).classList.add('ativo');
-        });
-    });
-
-    document.getElementById('ir-simulador').addEventListener('click', () => {
-        botoesNav.forEach(b => b.classList.remove('ativo'));
-        abas.forEach(aba => aba.classList.remove('ativo'));
-        document.querySelector('[data-aba="simulador"]').classList.add('ativo');
-        document.getElementById('simulador').classList.add('ativo');
-    });
-
-    iniciarSimulador();
+    if (document.getElementById('simulador')) {
+        iniciarSimulador();
+    }
 });
 
 const times = [
@@ -41,6 +24,21 @@ let campeonato = {
     partidas: [],
     visualizacaoRodada: 1
 };
+
+function iniciarSimulador() {
+    if (!carregarEstadoCampeonato()) {
+        campeonato.times = times.map(t => ({ ...t }));
+        zerarEstatisticasTimes();
+        gerarTodasPartidas();
+        campeonato.rodadaAtual = 1;
+        campeonato.visualizacaoRodada = 1;
+    }
+
+    configurarControlesRodada();
+    configurarControlesSimulador();
+    atualizarTela();
+}
+
 
 function zerarEstatisticasTimes() {
     campeonato.times.forEach(time => {
@@ -117,13 +115,28 @@ function ordenarClassificacao() {
     });
 }
 
+function salvarClassificacaoFinal() {
+    ordenarClassificacao();
+    const classificacaoFinal = campeonato.times.map(t => ({
+        id: t.id,
+        nome: t.nome,
+        logo: t.logo,
+        pontos: t.pontos,
+        saldoGols: t.saldoGols,
+        golsPro: t.golsPro,
+        jogos: t.jogos
+    }));
+    localStorage.setItem('classificacaoFinal', JSON.stringify(classificacaoFinal));
+}
+
 function renderizarClassificacao() {
     ordenarClassificacao();
     const tbody = document.getElementById('corpo-classificacao');
     tbody.innerHTML = campeonato.times.map((time, index) => {
-        const classePosicao = index === 0 ? 'champion'
-            : index < 6 ? 'playoff'
-                : 'rest';
+        const classePosicao =
+            index === 0 ? 'semifinal'
+                : index >= 1 && index <= 6 ? 'quartas'
+                    : 'rest';
         return `
       <tr>
         <td><div class="position ${classePosicao}">${index + 1}</div></td>
@@ -189,7 +202,6 @@ function tratarInputPlacar(idPartida, lado, valor) {
     partida['gols' + (lado === 'mandante' ? 'Mandante' : 'Visitante')] = isNaN(valorNum) ? null : valorNum;
 
     zerarEstatisticasTimes();
-
     campeonato.partidas.forEach(p => {
         if (p.golsMandante !== null && p.golsVisitante !== null) {
             atualizarEstatisticasTime(p.mandante.id, p.golsMandante, p.golsVisitante);
@@ -198,7 +210,9 @@ function tratarInputPlacar(idPartida, lado, valor) {
     });
 
     atualizarTela();
+    salvarEstadoCampeonato();
 }
+
 
 function atualizarTela() {
     renderizarClassificacao();
@@ -206,15 +220,20 @@ function atualizarTela() {
 }
 
 function resetarCampeonato() {
-    campeonato.rodadaAtual = 1;
-    campeonato.visualizacaoRodada = 1;
-    zerarEstatisticasTimes();
-    campeonato.partidas.forEach(p => {
-        p.golsMandante = null;
-        p.golsVisitante = null;
-    });
-    atualizarTela();
+    if (confirm('Deseja resetar todo o campeonato? Todos os dados serão perdidos.')) {
+        campeonato.rodadaAtual = 1;
+        campeonato.visualizacaoRodada = 1;
+        zerarEstatisticasTimes();
+        campeonato.partidas.forEach(p => {
+            p.golsMandante = null;
+            p.golsVisitante = null;
+        });
+        localStorage.removeItem('classificacaoFinal');
+        localStorage.removeItem('estadoCampeonato');
+        atualizarTela();
+    }
 }
+
 
 function configurarControlesRodada() {
     document.getElementById('rodada-anterior').addEventListener('click', () => {
@@ -237,36 +256,62 @@ function simularPartida(partida) {
 }
 
 function simularProximaRodada() {
-    if (campeonato.rodadaAtual > campeonato.totalRodadas) return;
+    if (campeonato.rodadaAtual > campeonato.totalRodadas) {
+        alert("Todas as rodadas já foram simuladas!");
+        return;
+    }
+
     const partidasRodada = campeonato.partidas.filter(p => p.rodada === campeonato.rodadaAtual);
     partidasRodada.forEach(simularPartida);
+
     campeonato.rodadaAtual++;
-    tratarInputPlacar('', '', '');
+    campeonato.visualizacaoRodada = Math.min(campeonato.rodadaAtual, campeonato.totalRodadas);
+
+    zerarEstatisticasTimes();
+    campeonato.partidas.forEach(p => {
+        if (p.golsMandante !== null && p.golsVisitante !== null) {
+            atualizarEstatisticasTime(p.mandante.id, p.golsMandante, p.golsVisitante);
+            atualizarEstatisticasTime(p.visitante.id, p.golsVisitante, p.golsMandante);
+        }
+    });
+
+    atualizarTela();
+    salvarEstadoCampeonato();
+
+    if (campeonato.rodadaAtual > campeonato.totalRodadas) {
+        salvarClassificacaoFinal();
+    }
 }
 
+
 function simularTodasRodadas() {
-    while (campeonato.rodadaAtual <= campeonato.totalRodadas) {
-        simularProximaRodada();
+    if (campeonato.rodadaAtual > campeonato.totalRodadas) {
+        alert("O campeonato já foi totalmente simulado!");
+        return;
+    }
+
+    if (confirm('Deseja simular todo o campeonato? Esta ação não pode ser desfeita.')) {
+        while (campeonato.rodadaAtual <= campeonato.totalRodadas) {
+            simularProximaRodada();
+        }
     }
 }
 
 function configurarControlesSimulador() {
-    document.getElementById('simular-rodada').addEventListener('click', () => {
-        simularProximaRodada();
-    });
-    document.getElementById('simular-tudo').addEventListener('click', () => {
-        if (confirm('Deseja simular todo o campeonato? Esta ação não pode ser desfeita.')) simularTodasRodadas();
-    });
-    document.getElementById('resetar-campeonato').addEventListener('click', () => {
-        if (confirm('Deseja resetar todo o campeonato? Todos os dados serão perdidos.')) resetarCampeonato();
-    });
+    document.getElementById('simular-rodada').addEventListener('click', simularProximaRodada);
+    document.getElementById('simular-tudo').addEventListener('click', simularTodasRodadas);
+    document.getElementById('resetar-campeonato').addEventListener('click', resetarCampeonato);
 }
 
-function iniciarSimulador() {
-    campeonato.times = times.map(t => ({ ...t }));
-    zerarEstatisticasTimes();
-    gerarTodasPartidas();
-    configurarControlesRodada();
-    configurarControlesSimulador();
-    atualizarTela();
+function salvarEstadoCampeonato() {
+    localStorage.setItem('estadoCampeonato', JSON.stringify(campeonato));
+}
+
+function carregarEstadoCampeonato() {
+    const salvo = localStorage.getItem('estadoCampeonato');
+    if (salvo) {
+        campeonato = JSON.parse(salvo);
+        return true;
+    }
+    return false;
 }

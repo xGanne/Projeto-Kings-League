@@ -11,7 +11,7 @@
 }
 
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Inter', sans-serif;
     background: #0f0f23;
     color: #ffffff;
     min-height: 100vh;
@@ -61,17 +61,15 @@ body {
 }
 
 .botao-nav {
-    background: rgba(255, 255, 255, 0.15);
+    display: inline-block;
+    padding: 8px 16px;
+    text-decoration: none;
+    color: inherit;
+    font: inherit;
     border: none;
-    color: white;
-    padding: 0.6rem 1rem;
-    border-radius: 25px;
+    border-radius: 15px;
+    background: none;
     cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-weight: 500;
-    transition: all 0.3s ease;
 }
 
     .botao-nav:hover {
@@ -79,9 +77,11 @@ body {
     }
 
     .botao-nav.ativo {
-        background: white;
-        color: #ff6b35;
+        font-weight: bold;
+        border-bottom: 2px solid #ffcd3c;
+        color: #ffcd3c;
     }
+
 
 .conteudo-aba {
     display: none;
@@ -318,6 +318,54 @@ body {
     margin: 0 auto;
 }
 
+    .position.semifinal {
+        background-color: #51cf66;
+        color: #000;
+        border-radius: 50%;
+        padding: 4px 8px;
+    }
+
+    .position.quartas {
+        background-color: #ffcd3c;
+        color: #000;
+        border-radius: 50%;
+        padding: 4px 8px;
+    }
+
+    .position.rest {
+        background-color: transparent;
+    }
+
+.legenda-classificacao {
+    margin-top: 12px;
+    display: flex;
+    gap: 16px;
+    font-size: 0.9rem;
+    align-items: center;
+}
+
+.item-legenda {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.bolinha-legenda {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+    .bolinha-legenda.semifinal {
+        background-color: #51cf66;
+    }
+
+    .bolinha-legenda.quartas {
+        background-color: #ffcd3c;
+    }
+
+
 .seletor-rodada {
     display: flex;
     align-items: center;
@@ -377,10 +425,13 @@ body {
     overflow: hidden;
     text-overflow: ellipsis;
 }
-
 .controles-simulador {
-    display: none;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 20px;
 }
+
 
 .vs {
     color: #ffcd3c;
@@ -416,6 +467,115 @@ body {
 
 .container-rodape p {
     color: #a4b0be;
+}
+
+.chaveamento-playoffs {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    margin: 24px auto;
+    max-width: 1200px;
+    flex-wrap: wrap;
+}
+
+    .chaveamento-playoffs .coluna {
+        flex: 1 1 300px;
+        background: #1e1e2f;
+        border-radius: 12px;
+        padding: 16px;
+        box-sizing: border-box;
+    }
+
+    .chaveamento-playoffs h3 {
+        text-align: center;
+        color: #ffcd3c;
+        margin-bottom: 16px;
+        font-size: 1.2rem;
+    }
+
+.confrontos {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.confronto {
+    background: #2c2c3e;
+    border-radius: 8px;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #fff;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+}
+
+.confronto-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 8px;
+}
+
+.time-info {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+    .time-info img {
+        width: 28px;
+        height: 28px;
+        object-fit: cover;
+        border-radius: 50%;
+    }
+
+.inputs-placar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 8px 0;
+}
+
+    .inputs-placar input.input-gol {
+        width: 40px;
+        padding: 4px;
+        border-radius: 4px;
+        border: 1px solid #555;
+        background-color: #1e1e2f;
+        color: #fff;
+        text-align: center;
+        font-size: 1rem;
+    }
+
+        .inputs-placar input.input-gol:focus {
+            outline: none;
+            border-color: #ffcd3c;
+        }
+
+.simular-btn {
+    background-color: #ffcd3c;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    color: #000;
+    font-weight: bold;
+    margin-top: 6px;
+    transition: background-color 0.3s;
+}
+
+    .simular-btn:hover {
+        background-color: #e6b800;
+    }
+
+#campeao {
+    text-align: center;
+    margin-top: 24px;
+    font-size: 1.4rem;
+    color: #ffcd3c;
+    font-weight: bold;
 }
 
 @media (max-width: 768px) {
