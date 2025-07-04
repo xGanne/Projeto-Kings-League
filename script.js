@@ -201,7 +201,6 @@ function tratarInputPlacar(idPartida, lado, valor) {
 }
 
 function atualizarTela() {
-    document.getElementById('rodada-atual').textContent = campeonato.rodadaAtual;
     renderizarClassificacao();
     renderizarRodadas();
 }
